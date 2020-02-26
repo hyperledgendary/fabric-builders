@@ -1,0 +1,11 @@
+#!/bin/bash
+
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+source "${SCRIPT_DIR}/common/utils.sh"
+
+CHAINCODE_METADATA_DIR="$2"
+
+check_chaincode_type "$CHAINCODE_METADATA_DIR" "haskell"
