@@ -36,4 +36,3 @@ function check_chaincode_type {
         error_exit "Unsupported chaincode type: $CHAINCODE_TYPE"
     fi
 }
-

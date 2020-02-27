@@ -4,6 +4,9 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
+SCRIPT_DIR=$(dirname "$SCRIPT")
+
+# shellcheck source=builders/common/utils.sh
 source "${SCRIPT_DIR}/common/utils.sh"
 
 CHAINCODE_METADATA_DIR="$2"
