@@ -3,3 +3,5 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 #
+
+# TODO: Run some prebuilt chaincode. (Get the command out of metadata.json or just use some predefined script name?)

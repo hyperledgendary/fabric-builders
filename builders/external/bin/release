@@ -13,4 +13,9 @@ source "${SCRIPT_DIR}/common/utils.sh"
 BUILD_OUTPUT_DIR="$1"
 RELEASE_OUTPUT_DIR="$2"
 
+# External chaincodes must include server connection information
+if [ ! -f "$BUILD_OUTPUT_DIR/connection.json" ]; then
+    error_exit "$BUILD_OUTPUT_DIR/connection.json not found"
+fi
+
 copy_release_metadata_artifacts "$BUILD_OUTPUT_DIR" "$RELEASE_OUTPUT_DIR"

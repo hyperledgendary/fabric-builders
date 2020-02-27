@@ -9,6 +9,7 @@ SCRIPT_DIR=$(dirname "$SCRIPT")
 # shellcheck source=builders/common/utils.sh
 source "${SCRIPT_DIR}/common/utils.sh"
 
+# The peer invokes detect with two arguments: CHAINCODE_SOURCE_DIR CHAINCODE_METADATA_DIR
 CHAINCODE_METADATA_DIR="$2"
 
 check_chaincode_type "$CHAINCODE_METADATA_DIR" "haskell"
