@@ -61,7 +61,6 @@ function copy_build_metadata_artifacts {
     # Server connection information
     if [ -f "$FROM_DIR/connection.json" ]; then
         cp "$FROM_DIR/connection.json" "$TO_DIR/connection.json"
-        # TODO if tls_required is true, copy TLS files?
     fi
 }
 
@@ -90,8 +89,35 @@ function copy_release_metadata_artifacts {
     if [ -f "$FROM_DIR/connection.json" ]; then
         mkdir -p "$TO_DIR/chaincode/server"
         cp "$FROM_DIR/connection.json" "$TO_DIR/chaincode/server"
+    fi
+}
 
-        # TODO if tls_required is true, copy TLS files?
-        # Using above example, the fully qualified path for these fils would be "$RELEASE"/chaincode/server/tls
+#######################################
+# Export environment variables and extract certificate files from chaincode.json
+# Globals:
+#   None
+# Arguments:
+#   METADATA_DIR: Location of the chaincode.json file
+# Returns:
+#   None
+#######################################
+function process_chaincode_metadata_json {
+    local METADATA_DIR="$1"
+
+    export CORE_CHAINCODE_ID_NAME="$(jq -r .chaincode_id "$METADATA_DIR/chaincode.json")"
+    export CORE_PEER_ADDRESS="$(jq -r .peer_address "$METADATA_DIR/chaincode.json")"
+    export CORE_PEER_LOCALMSPID="$(jq -r .mspid "$METADATA_DIR/chaincode.json")"
+
+    if [ -z "$(jq -r .client_cert "$METADATA_DIR/chaincode.json")" ]; then
+        export CORE_PEER_TLS_ENABLED="false"
+    else
+        export CORE_PEER_TLS_ENABLED="true"
+        export CORE_TLS_CLIENT_CERT_FILE="$PWD/client.crt"
+        export CORE_TLS_CLIENT_KEY_FILE="$PWD/client.key"
+        export CORE_PEER_TLS_ROOTCERT_FILE="$PWD/root.crt"
+
+        jq -r .client_cert "$METADATA_DIR/chaincode.json" > "$CORE_TLS_CLIENT_CERT_FILE"
+        jq -r .client_key  "$METADATA_DIR/chaincode.json" > "$CORE_TLS_CLIENT_KEY_FILE"
+        jq -r .root_cert   "$METADATA_DIR/chaincode.json" > "$CORE_PEER_TLS_ROOTCERT_FILE"
     fi
 }
