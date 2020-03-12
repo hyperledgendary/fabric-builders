@@ -18,9 +18,11 @@ if [ ! -f "$BUILD_OUTPUT_DIR/start.sh" ]; then
     error_exit "$CHAINCODE_SOURCE_DIR/start.sh not found"
 fi
 
-process_chaincode_metadata_json $RUN_METADATA_DIR
+process_chaincode_metadata_json "$RUN_METADATA_DIR"
 
 # Run ...something?!
 # Get the command out of metadata.json or just use predefined start.sh script?
-cd $BUILD_OUTPUT_DIR
+cd "$BUILD_OUTPUT_DIR" || error_exit "$BUILD_OUTPUT_DIR not found"
+
+# shellcheck disable=SC1091
 source ./start.sh
