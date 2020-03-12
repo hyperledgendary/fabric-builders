@@ -34,8 +34,8 @@ Start a fabric network using the new peer image. For example, edit docker-compos
 
 Package chaincode for required builder:
 
-- [external](./external/README.md)
-- [prebuilt](./prebuilt/README.md)
+- [external](./builders/external/README.md)
+- [prebuilt](./builders/prebuilt/README.md)
 
 ## Useful links
 
