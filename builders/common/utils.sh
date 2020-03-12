@@ -104,17 +104,25 @@ function copy_release_metadata_artifacts {
 function process_chaincode_metadata_json {
     local METADATA_DIR="$1"
 
-    export CORE_CHAINCODE_ID_NAME="$(jq -r .chaincode_id "$METADATA_DIR/chaincode.json")"
-    export CORE_PEER_ADDRESS="$(jq -r .peer_address "$METADATA_DIR/chaincode.json")"
-    export CORE_PEER_LOCALMSPID="$(jq -r .mspid "$METADATA_DIR/chaincode.json")"
+    CORE_CHAINCODE_ID_NAME="$(jq -r .chaincode_id "$METADATA_DIR/chaincode.json")"
+    CORE_PEER_ADDRESS="$(jq -r .peer_address "$METADATA_DIR/chaincode.json")"
+    CORE_PEER_LOCALMSPID="$(jq -r .mspid "$METADATA_DIR/chaincode.json")"
+    export CORE_CHAINCODE_ID_NAME
+    export CORE_PEER_ADDRESS
+    export CORE_PEER_LOCALMSPID
 
     if [ -z "$(jq -r .client_cert "$METADATA_DIR/chaincode.json")" ]; then
-        export CORE_PEER_TLS_ENABLED="false"
+        CORE_PEER_TLS_ENABLED="false"
+        export CORE_PEER_TLS_ENABLED
     else
-        export CORE_PEER_TLS_ENABLED="true"
-        export CORE_TLS_CLIENT_CERT_FILE="$PWD/client.crt"
-        export CORE_TLS_CLIENT_KEY_FILE="$PWD/client.key"
-        export CORE_PEER_TLS_ROOTCERT_FILE="$PWD/root.crt"
+        CORE_PEER_TLS_ENABLED="true"
+        CORE_TLS_CLIENT_CERT_FILE="$PWD/client.crt"
+        CORE_TLS_CLIENT_KEY_FILE="$PWD/client.key"
+        CORE_PEER_TLS_ROOTCERT_FILE="$PWD/root.crt"
+        export CORE_PEER_TLS_ENABLED
+        export CORE_TLS_CLIENT_CERT_FILE
+        export CORE_TLS_CLIENT_KEY_FILE
+        export CORE_PEER_TLS_ROOTCERT_FILE
 
         jq -r .client_cert "$METADATA_DIR/chaincode.json" > "$CORE_TLS_CLIENT_CERT_FILE"
         jq -r .client_key  "$METADATA_DIR/chaincode.json" > "$CORE_TLS_CLIENT_KEY_FILE"

@@ -41,8 +41,8 @@ Package chaincode for required builder:
 
 ### Articles
 
-- [https://medium.com/@robinklemens/setting-up-the-external-chaincode-builder-and-launcher-in-hyperledger-fabric-2-0-b17f43a3d8ed](Setting Up the External Chaincode Builder and Launcher in Hyperledger Fabric 2.0)
-- [https://medium.com/@pau.aragones/how-to-implement-hyperledger-fabric-external-chaincodes-within-a-kubernetes-cluster-fd01d7544523](How to implement Hyperledger Fabric External Chaincodes within a Kubernetes cluster)
+- [Setting Up the External Chaincode Builder and Launcher in Hyperledger Fabric 2.0](https://medium.com/@robinklemens/setting-up-the-external-chaincode-builder-and-launcher-in-hyperledger-fabric-2-0-b17f43a3d8ed)
+- [How to implement Hyperledger Fabric External Chaincodes within a Kubernetes cluster](https://medium.com/@pau.aragones/how-to-implement-hyperledger-fabric-external-chaincodes-within-a-kubernetes-cluster-fd01d7544523)
 
 ### Documentation
 
