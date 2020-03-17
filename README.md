@@ -11,7 +11,7 @@ It would be better to generate _core.yaml_ from [the copy in Hyperledger Fabric]
 Requires [shellcheck](https://www.shellcheck.net/), and [bats-core](https://github.com/bats-core/bats-core):
 
 ```
-shellcheck -x builders/**/*.sh builders/**/{detect,build,release,run}
+shellcheck -x builders/**/*.sh builders/**/{detect,build,release,run} tools/*.sh
 ```
 
 ```
