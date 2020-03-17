@@ -1,0 +1,3 @@
+# Ignore tarballs
+*.tgz
+*.tar.gz
