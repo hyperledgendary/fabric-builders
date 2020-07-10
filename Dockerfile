@@ -1,4 +1,4 @@
-ARG HLF_VERSION=2.0
+ARG HLF_VERSION=2.2
 
 FROM hyperledger/fabric-peer:${HLF_VERSION}
 
