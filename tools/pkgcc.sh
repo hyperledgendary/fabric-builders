@@ -5,7 +5,7 @@
 #
 
 function usage() {
-    echo "Usage: pkgcc.sh -l <label> -t <type> <file>"
+    echo "Usage: pkgcc.sh -l <label> -t <type> [-m <META-INF directory>] <file>"
 }
 
 function error_exit {
@@ -13,7 +13,7 @@ function error_exit {
     exit 1
 }
 
-while getopts "hl:t:" opt; do
+while getopts "hl:t:m:" opt; do
     case "$opt" in
         h)
             usage
@@ -24,6 +24,9 @@ while getopts "hl:t:" opt; do
             ;;
         t)
             type=${OPTARG}
+            ;;
+        m)
+            metainf=${OPTARG}
             ;;
         *)
             usage
@@ -52,6 +55,17 @@ if [ ! -d "$file" ] && [ ! -f "$file" ]; then
     error_exit "Cannot find file $file"
 fi
 
+metadir=$(basename "$metainf")
+if [ -n "$metainf" ]; then
+    if [ "$type" != "external" ]; then
+        error_exit "The chaincode META-INF directory option is only supported for external chaincode"
+    elif [ "META-INF" != "$metadir" ]; then
+        error_exit "Invalid chaincode META-INF directory $metadir: directory name must be 'META-INF'"
+    elif [ ! -d "$metainf" ]; then
+        error_exit "Cannot find directory $metadir"
+    fi
+fi
+
 prefix=$(basename "$0")
 tempdir=$(mktemp -d -t "$prefix.XXXXXXXX") || error_exit "Error creating temporary directory"
 
@@ -60,6 +74,7 @@ if [ -n "$DEBUG" ]; then
     echo "type = $type"
     echo "file = $file"
     echo "tempdir = $tempdir"
+    echo "metainf = $metainf"
 fi
 
 mkdir -p "$tempdir/src"
@@ -67,6 +82,10 @@ if [ -d "$file" ]; then
     cp -a "$file/"* "$tempdir/src/"
 elif [ -f "$file" ]; then
     cp -a "$file" "$tempdir/src/"
+fi
+
+if [ -n "$metainf" ]; then
+    cp -a "$metainf" "$tempdir/src/"
 fi
 
 mkdir -p "$tempdir/pkg"
