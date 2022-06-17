@@ -2,6 +2,10 @@
 
 External builders and launchers for Hyperledger Fabric
 
+**Archived:** This project has now been archived due to more recent alternatives being available.
+- [CCaaS builder](https://github.com/hyperledger/fabric/tree/main/ccaas_builder): chaincode as a service builder in the main fabric repository
+- [k8s builder](https://github.com/hyperledgendary/fabric-builder-k8s): experimental kubernetes builder
+
 ## Development
 
 It would be better to generate _core.yaml_ from [the copy in Hyperledger Fabric](https://github.com/hyperledger/fabric/blob/master/sampleconfig/core.yaml), i.e. add the external builder configuration, instead of having an out of date copy here.
